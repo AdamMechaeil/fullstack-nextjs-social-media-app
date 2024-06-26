@@ -10,7 +10,9 @@ connectDb();
 const app=express();
 app.use(cors()); 
 app.use(morgan("dev"));
-app.use(bodyParser.json())
+app.use(bodyParser.json({
+    limit:"300mb"
+}))
 
 app.get("/",(req,res)=>{
     res.send("Hello")
