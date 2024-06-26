@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useReducer } from "react";
+import { API } from "@/utils/utils";
 
 let authData = {};
 
@@ -23,7 +24,10 @@ async function signin(body) {
 
 async function signup(body){
     try {
-        
+      
+      const data=await API.post("/auth/signup",body);
+      return data?.data;
+
     } catch (error) {
         console.log(error);
     }
@@ -33,8 +37,10 @@ export const AuthContext = createContext();
 
 function reducer(state, action) {
   switch (action.type) {
-    case "SIGN_IN":
-
+    case "SIGN_UP":
+      delete action.payload.msg
+      localStorage.setItem("5:30Social",JSON.stringify(action.payload));
+      return action.payload
     default:
       return state;
   }
